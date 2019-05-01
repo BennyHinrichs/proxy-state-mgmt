@@ -1,37 +1,69 @@
 <html>
-  <head>
-    <script type="module" src="main.js"></script>
-  </head>
-  <style>
-    .actions {
-      display: flex;
-    }
-    .btn {
-      border: 1px solid rebeccapurple;
-      border-radius: .2rem;
-      cursor: pointer;
-      margin: .5rem;
-      padding: 1rem;
-    }
-    .btn:hover {
-      background: rgb(218, 182, 218);
-    } 
-    type-banner {
-      border-bottom: 1px solid rebeccapurple;
-      margin-bottom: 1rem;
-    }
-  </style>
-  <body>
+
+<head>
+  <script type="module" src="main.js"></script>
+</head>
+<style>
+  :root {
+    font-family: Arial, sans-serif;
+    --size-lg: 1rem;
+    --size-md: .5rem;
+    --radius: .2rem;
+  }
+  .card {
+    border-radius: var(--radius);
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: var(--size-lg);
+    padding: var(--size-lg);
+  }
+
+  .actions {
+    display: flex;
+    margin: var(--size-lg) 0;
+  }
+
+  .btn, input {
+    border: 1px solid rebeccapurple;
+    border-radius: var(--radius);
+    margin: 0 var(--size-md);
+  }
+  .btn {
+    cursor: pointer;
+    padding: 1rem;
+  }
+  .btn:hover {
+    background: rgb(218, 182, 218);
+    color: #fff;
+  }
+  input {
+    outline: none;
+    padding: var(--size-md);
+  }
+
+  type-banner, user-info {
+    margin: var(--size-md);
+  }
+</style>
+
+<body>
+  <div class="card">
     <type-banner></type-banner>
     <div class="actions actions--type">
       <div class="btn" data-action="current">Current</div>
       <div class="btn" data-action="modify">Modify</div>
       <div class="btn" data-action="mock">Mock</div>
     </div>
+  </div>
+  <div class="card">
     <user-info></user-info>
     <div class="actions actions--user">
-      <input type="text" class="" data-action="name" placeholder="Name"/>
+      <input type="text" class="" data-action="name" placeholder="Name" />
       <input type="date" class="" data-action="dob" />
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
