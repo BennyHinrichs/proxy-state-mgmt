@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script type="module" src="main.js"></script>
+  </head>
+  <style>
+    .actions {
+      display: flex;
+    }
+    .btn {
+      border: 1px solid rebeccapurple;
+      cursor: pointer;
+      margin: .5rem;
+      padding: 1rem;
+    }
+    .btn:hover {
+      background: rgb(218, 182, 218);
+    } 
+    type-banner {
+      border-bottom: 1px solid rebeccapurple;
+      margin-bottom: 1rem;
+    }
+  </style>
+  <body>
+    <type-banner></type-banner>
+    <div class="actions actions--type">
+      <div class="btn" data-action="current">Current</div>
+      <div class="btn" data-action="modify">Modify</div>
+      <div class="btn" data-action="mock">Mock</div>
+    </div>
+    <user-info></user-info>
+    <div class="actions actions--user">
+      <input type="text" class="" data-action="name" />
+      <input type="date" class="" data-action="dob" />
+    </div>
+  </body>
+</html>
