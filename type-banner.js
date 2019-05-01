@@ -3,7 +3,7 @@ import {state, subscribers} from './state.js';
 class TypeBanner extends HTMLElement {
   connectedCallback() {
     subscribers.push({ element: this, props: ['type'] });
-    this.message = 'No option selected';
+    this.setMessage();
     this.render();
   }
   static get observedAttributes() {
@@ -20,10 +20,13 @@ class TypeBanner extends HTMLElement {
         this.message = 'Report generated from current system data.';
         break;
       case 'modify':
-        this.message = 'Modifying system data for new report. Any medication and observation changes will be saved to the system.';
+        this.message = 'Modifying system data for new report. Any changes will be saved to the system.';
         break;
       case 'mock':
-        this.message = 'Working with temporary values. No medications or observations will be saved to the system.';
+        this.message = 'Working with temporary values. No data will be saved to the system.';
+        break;
+      default:
+        this.message = 'No option selected';
         break;
     }
   }
