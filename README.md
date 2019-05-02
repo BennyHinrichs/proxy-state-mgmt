@@ -10,4 +10,7 @@ You only have a few things to keep track of. You don't want to load a whole libr
 1. If for whatever reason you need to stop listening to state changes for a certain prop, you can call `unsubscribeFromProp`, passing in the name of the undesired prop.
 
 ### Rich Data
-My current preferred method for checking if object properties exist is: `(((level1 || {}).level2 || {}).level3 || {}).key`. There is a TC-39 proposal in stage one for optional chaining syntax, so it could look like `obj?.level1?.level2?.level3?.key`. Isn't that just lovely? Anyway, the point is don't pass in rich data (like an object), then shoot yourself in the foot by not doing null checks on it.
+My current preferred method for checking if object properties exist is: `(((level1 || {}).level2 || {}).level3 || {}).key`. There is (a TC-39 proposal)[https://github.com/tc39/proposal-optional-chaining] in stage one for optional chaining syntax, so it could look like `obj?.level1?.level2?.level3?.key`. Isn't that just lovely? Anyway, the point is don't pass in rich data (like an object), then shoot yourself in the foot by not doing null checks on it.
+
+## Extras
+If you want to try out the demo but don't want to start up some command line server, try out [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). Clone the repo, then point that server to the folder.
