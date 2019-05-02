@@ -10,7 +10,6 @@ class UserInfo extends SubscriberElement {
     this.render();
   }
   propertyChangedCallback(name, oldValue, newValue) {
-    console.log({name, oldValue, newValue})
     this.render();
   }
   get user() {

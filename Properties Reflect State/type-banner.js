@@ -6,8 +6,8 @@ class TypeBanner extends SubscriberElement {
     this.observedProperties = ['reportType'];
     this.messages = {
       current: 'Report generated from current system data.',
-      modify: 'Modifying system data for new report. Any medication and observation changes will be saved to the system.',
-      mock: 'Working with temporary values. No medications or observations will be saved to the system.'
+      modify: 'Modifying system data for new report. Any changes will be saved to the system.',
+      mock: 'Working with temporary values. No changes will be saved to the system.'
     };
   }
   connectedCallback() {
@@ -16,7 +16,6 @@ class TypeBanner extends SubscriberElement {
     this.render();
   }
   propertyChangedCallback(name, oldValue, newValue) {
-    console.log({name, oldValue, newValue})
     this.render();
   }
   setMessage(reportType) {

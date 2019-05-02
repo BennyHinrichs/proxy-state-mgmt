@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="module" src="main.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="card">
+    <div class="card__title"><span class="title__name">type-banner:</span> <span class="title__description">subscribed
+        to a primitive property</span></div>
+    <type-banner></type-banner>
+    <div class="actions actions--type">
+      <div class="btn" data-action="current">Current</div>
+      <div class="btn" data-action="modify">Modify</div>
+      <div class="btn" data-action="mock">Mock</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card__title"><span class="title__name">user-info:</span> <span class="title__description">subscribed to
+        a rich data property</span></div>
+    <user-info></user-info>
+    <div class="actions actions--user">
+      <input type="text" class="" data-action="name" placeholder="Name" />
+      <input type="date" class="" data-action="dob" />
+    </div>
+  </div>
+  <div class="card">
+    <div class="card__title"><span class="title__name">combo-banner:</span> <span class="title__description">subscribed
+        to both</span></div>
+    <combo-banner></combo-banner>
+  </div>
+</body>
+
+</html>

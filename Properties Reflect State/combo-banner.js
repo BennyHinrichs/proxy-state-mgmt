@@ -10,11 +10,7 @@ class ComboBanner extends SubscriberElement {
     this.render();
   }
   propertyChangedCallback(name, oldValue, newValue) {
-    console.log({name, oldValue, newValue})
     this.render();
-  }
-  setMessage(reportType) {
-    this.message = this.messages[reportType] || 'Select below how you want the report to be generated';
   }
   get reportType() {
     return this.properties.reportType;
