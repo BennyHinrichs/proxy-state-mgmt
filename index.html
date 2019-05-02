@@ -1,56 +1,15 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script type="module" src="main.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Poppins');
-  :root {
-    font-family: 'Poppins', Arial, sans-serif;
-    --size-lg: 1rem;
-    --size-md: .5rem;
-    --radius: .2rem;
-  }
-  .card {
-    border-radius: var(--radius);
-    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: var(--size-lg);
-    padding: var(--size-lg);
-  }
-
-  .actions {
-    display: flex;
-    margin: var(--size-lg) 0;
-  }
-
-  .btn, input {
-    border: 1px solid rebeccapurple;
-    border-radius: var(--radius);
-    margin: 0 var(--size-md);
-  }
-  .btn {
-    cursor: pointer;
-    padding: 1rem;
-  }
-  .btn:hover {
-    background: rgb(218, 182, 218);
-    color: #fff;
-  }
-  input {
-    outline: none;
-    padding: var(--size-md);
-  }
-
-  type-banner, user-info {
-    margin: var(--size-md);
-  }
-</style>
 
 <body>
   <div class="card">
+    <div class="card__title"><span class="title__name">type-banner:</span> <span class="title__description">subscribed
+        to a primitive property</span></div>
     <type-banner></type-banner>
     <div class="actions actions--type">
       <div class="btn" data-action="current">Current</div>
@@ -59,11 +18,18 @@
     </div>
   </div>
   <div class="card">
+    <div class="card__title"><span class="title__name">user-info:</span> <span class="title__description">subscribed to
+        a rich data property</span></div>
     <user-info></user-info>
     <div class="actions actions--user">
       <input type="text" class="" data-action="name" placeholder="Name" />
       <input type="date" class="" data-action="dob" />
     </div>
+  </div>
+  <div class="card">
+    <div class="card__title"><span class="title__name">combo-banner:</span> <span class="title__description">subscribed
+        to both</span></div>
+    <combo-banner></combo-banner>
   </div>
 </body>
 

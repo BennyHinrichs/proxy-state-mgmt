@@ -1,26 +1,26 @@
-import { state, subscribers } from './state.js';
+import SubscriberElement from './subscriber-element.js';
 
-class UserInfo extends HTMLElement {
+class UserInfo extends SubscriberElement {
+  constructor() {
+    super();
+    this.observedProperties = ['user'];
+  }
   connectedCallback() {
-    subscribers.push({ element: this, props: ['user'] });
-    this._user = state.user;
+    this.subscribeToProps(this.observedProperties);
     this.render();
   }
-  static get observedAttributes() {
-    return ['user'];
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
+  propertyChangedCallback(name, oldValue, newValue) {
+    console.log({name, oldValue, newValue})
     this.render();
   }
   get user() {
-    return this._user;
+    return this.properties.user;
   }
   set user(val) {
-    this._user = val;
-    return this.setAttribute('user', val);
+    this.properties.user = val;
   }
   render() {
-    this.innerHTML = this._user.name && this._user.dob ? `${this._user.name} was born on ${this._user.dob}` : 'Fill out the input fields';
+    this.innerHTML = this.user.name && this.user.dob ? `${this.user.name} was born on ${this.user.dob}` : 'Fill out the input fields';
   }
 }
 customElements.define('user-info', UserInfo);

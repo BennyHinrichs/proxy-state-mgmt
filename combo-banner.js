@@ -1,18 +1,12 @@
 import SubscriberElement from './subscriber-element.js';
 
-class TypeBanner extends SubscriberElement {
+class ComboBanner extends SubscriberElement {
   constructor() {
     super();
-    this.observedProperties = ['reportType'];
-    this.messages = {
-      current: 'Report generated from current system data.',
-      modify: 'Modifying system data for new report. Any medication and observation changes will be saved to the system.',
-      mock: 'Working with temporary values. No medications or observations will be saved to the system.'
-    };
+    this.observedProperties = ['reportType', 'user'];
   }
   connectedCallback() {
     this.subscribeToProps(this.observedProperties);
-    this.setMessage();
     this.render();
   }
   propertyChangedCallback(name, oldValue, newValue) {
@@ -26,11 +20,16 @@ class TypeBanner extends SubscriberElement {
     return this.properties.reportType;
   }
   set reportType(val) {
-    this.setMessage(val);
     this.properties.reportType = val;
   }
+  get user() {
+    return this.properties.user;
+  }
+  set user(val) {
+    this.properties.user = val;
+  }
   render() {
-    this.innerText = this.message;
+    this.innerHTML = `<div>Report Type: ${this.reportType || 'TYPE'}</div><div>On ${(this.user || {}).dob || 'DATE'} there was ${(this.user || {}).name || 'NAME'}</div>`;
   }
 }
-customElements.define('type-banner', TypeBanner);
+customElements.define('combo-banner', ComboBanner);

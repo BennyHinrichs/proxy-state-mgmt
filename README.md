@@ -1,20 +1,13 @@
 ## Overview
-You only have a few things to keep track of. You don't want to load a whole library like Redux or MobX in to manage your state. Well try this method instead. It takes advantage of JavaScript object proxies and the custom element `attributeChangedCallback`
+You only have a few things to keep track of. You don't want to load a whole library like Redux or MobX in to manage your state. Well try this method instead. It takes advantage of JavaScript object proxies to let you subscribe to individual properties on a global state. With this, everything is stored on your custom element as properties instead of attributes (so no `attributeChangedCallback`). It assumes that if you care enough to wed an element to the state, you'll have no issues in making a custom element of it.
 
 ## Usage
-In your `connectedCallback`, use `subscribers.push({ element: this, props: ['prop1','prop2',...] })` to subscribe your custom element to patches made to any props in that list. From there you just need a simple getter and setter for each attribute, along with `attributeChangedCallback` to render (or whatever other shenanigans you get up to).
+1. Make thee a custom element that extends my `SubscriberElement` class.
+1. In the 'constructor', define a list of properties you want to observe. I call this: `observedProperties`. Soon this will be able to just be a field on the class (available as of Chrome 74). 
+1. In the `connectedCallback`, call `this.subscribeToProps(this.observedProperties)`.
+1. Make getters and setters for each property. This could potentially be done in the `subscribeToProp` method, but I don't know if I want to take that flexibility away from the programmer.
+1. Implement a `propertyChangedCallback` on the element. Strictly, this isn't necessary. Perhaps you just care that the element has data on it, and it will be read by something else. Though if that's the case, why don't you just read from the global `state` instead?
+1. If for whatever reason you need to stop listening to state changes for a certain prop, you can call `unsubscribeFromProp`, passing in the name of the undesired prop.
 
 ### Rich Data
-I know, you want to be like the big kids and not put rich data in attributes. But there's no `propertyChangedCallback`, only `attributeChangedCallback`. Darned inconvient. My current solution around this is to have two fields on your class, e.g. `user` and `_user`. Here, `user` is the primitive attribute and `_user` is the rich data property. We leverage the native `attributeChangedCallback` to do our listening and our setter looks like
-
-```javascript
-set user(val) {
-  this._user = val; // set the rich data property
-  return this.setAttribute('user', val); // trigger attributeChangedCallback
-}
-```
-
-You might be wondering why I'm not checking to see if the values are different here. It's because that's already happening in `state.js`. The check is just done in one place, so you don't have to do it in every single element you make. However, if you're expecting people to update your components through other routes than the state, you'll want to include checks at the component level.
-
-## Future Work
-I have vaguely envisioned a function that returns endless proxies as you more and more deeply access object properties.
+My current preferred method for checking if object properties exist is: `(((level1 || {}).level2 || {}).level3 || {}).key`. There is a TC-39 proposal in stage one for optional chaining syntax, so it could look like `obj?.level1?.level2?.level3?.key`. Isn't that just lovely? Anyway, the point is don't pass in rich data (like an object), then shoot yourself in the foot by not doing null checks on it.
