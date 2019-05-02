@@ -1,5 +1,5 @@
 ## Overview
-You only have a few things to keep track of. You don't want to load a whole library like Redux or MobX in to manage your state. Well try this method instead. It takes advantage of JavaScript object proxies to let you subscribe to individual properties on a global state. With this, everything is stored on your custom element as properties instead of attributes (so no `attributeChangedCallback`). It assumes that if you care enough to wed an element to the state, you'll have no issues in making a custom element of it.
+You only have a few things to keep track of. You don't want to load a whole library like Redux or MobX to manage your state. Well try this method instead. It takes advantage of JavaScript object proxies to let you subscribe to individual properties on the global state. With this, everything is stored on your custom element as properties instead of attributes (so no `attributeChangedCallback`). It assumes that if you care enough to wed an element to the state, you'll have no issues in making a custom element of it.
 
 ## Usage
 1. Make thee a custom element that extends my `SubscriberElement` class.
