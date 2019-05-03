@@ -57,7 +57,7 @@ My current preferred method for checking if object properties exist is: `(((leve
 ### Smart `render()`
 What should go in my render function? How do I make it smart? My first suggestion is to split your visual updates into two categories: content and style. If a visual update can be achieved by adding or removing a class, do that instead of resetting the entire `this.innerHTML`.
 
-One idea is to have a `firstRender` function called inside of `connectedCallback`. Inside of this, you set `this.innerHTML` to the initial render, then you go through and create a registry of every node as a property on the element. Then inside of `propertyChangedCallback` you write it so that it only alters the nodes relevant to the updated property.
+One idea is to have a `firstRender` function called inside of `connectedCallback`. Inside of this, you set `this.innerHTML` to the initial render, then you go through and create a registry of every node as a property on the element. Then inside of `propertyChangedCallback` you write it so that it only alters the nodes relevant to the updated property. Since they're already stored in a registry, there's no need for `querySelector`.
 
 ### Easy Web Server for Chrome
 If you want to try out the demo but don't want to start up some command line server, try out [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en). Clone the repo, then point that server to the folder.
