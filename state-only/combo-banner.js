@@ -10,6 +10,9 @@ class ComboBanner extends SubscriberElement {
     this.subscribeToProps(this.observedProperties);
     this.render();
   }
+  propertyChangedCallback(prop, oldValue, newValue) {
+    this.render();
+  }
   render() {
     this.innerHTML = `<div>Report Type: ${state.reportType || 'TYPE'}</div><div>On ${(state.user || {}).dob || 'DATE'} there was ${(state.user || {}).name || 'NAME'}</div>`;
   }

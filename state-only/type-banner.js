@@ -13,13 +13,17 @@ class TypeBanner extends SubscriberElement {
   }
   connectedCallback() {
     this.subscribeToProps(this.observedProperties);
+    this.setMessage();
+    this.render();
+  }
+  propertyChangedCallback(prop, oldValue, newValue) {
+    this.setMessage();
     this.render();
   }
   setMessage() {
     this.message = this.messages[state.reportType] || 'Select below how you want the report to be generated';
   }
   render() {
-    this.setMessage();
     this.innerText = this.message;
   }
 }

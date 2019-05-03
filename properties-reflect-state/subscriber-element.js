@@ -3,7 +3,7 @@
 
 import { state, subscribers } from './state.js';
 
-export default class extends HTMLElement {
+export default class SubscriberElement extends HTMLElement {
   constructor() {
     super();
     this.properties = new Proxy({}, {

@@ -10,6 +10,9 @@ class UserInfo extends SubscriberElement {
     this.subscribeToProps(this.observedProperties);
     this.render();
   }
+  propertyChangedCallback(prop, oldValue, newValue) {
+    this.render();
+  }
   render() {
     this.innerHTML = state.user.name && state.user.dob ? `${state.user.name} was born on ${state.user.dob}` : 'Fill out the input fields';
   }

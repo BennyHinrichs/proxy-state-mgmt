@@ -1,6 +1,6 @@
 import { state, subscribers } from './state.js';
 
-export default class extends HTMLElement {
+export default class SubscriberElement extends HTMLElement {
   subscribeToProp(prop) {
     // create the subscription category if it doesn't exist
     !subscribers[prop] && (subscribers[prop] = []);
