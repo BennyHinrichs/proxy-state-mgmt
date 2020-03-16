@@ -6,9 +6,10 @@ Sometimes you need your elements to be carrying the live data. Maybe you have a 
 
 ### Usage
 1. Make thee a custom element that extends my `SubscriberElement` class.
-1. In the 'constructor', define a list of properties you want to observe. I call this: `observedProperties`. Soon this will be able to just be a field on the class (available as of Chrome 74). 
-1. In the `connectedCallback`, call `this.subscribeToProps(this.observedProperties)`.
-1. Implement a `propertyChangedCallback` on the element (in which you'll probably call `this.render()`).
+1. Define the class field `observedProperties`, a `Set` of properties you want to observe. You can do this in the constructor if you want it more backward-compatible.
+1. Definte the `render()` method.
+1. If needed, override `connectedCallback`.
+1. If needed, override `propertyChangedCallback`.
 1. Make getters and setters for each property. This could potentially be done in the `subscribeToProp` method, but I don't know if I want to take that flexibility away from the programmer.
 1. If for whatever reason you need to stop listening to state changes for a certain prop, you can call `unsubscribeFromProp`, passing in the name of the undesired prop.
 

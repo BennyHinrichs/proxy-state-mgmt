@@ -2,10 +2,8 @@ import {state} from './state.js'
 import SubscriberElement from './subscriber-element.js'
 
 class ComboBanner extends SubscriberElement {
-  constructor() {
-    super()
-    this.observedProperties = new Set(['reportType', 'user'])
-  }
+  observedProperties = new Set(['reportType', 'user'])
+  
   render() {
     this.innerHTML = `<div>Report Type: ${state.reportType || 'TYPE'}</div><div>On ${(state.user || {}).dob || 'DATE'} there was ${(state.user || {}).name || 'NAME'}</div>`
   }
