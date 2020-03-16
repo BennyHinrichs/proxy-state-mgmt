@@ -10,7 +10,10 @@ const stateHandler = {
     target[prop] = value
     if (subscribers[prop]) {
       // notify the subscribers
-      subscribers[prop].forEach(s => s.propertyChangedCallback(prop, oldValue, value))
+      subscribers[prop].forEach(s => {
+        // implement our own WeakSet, since WeakSet isn't enumerable
+        s.parentNode ? s.propertyChangedCallback(prop, oldValue, value) : subscribers[prop].delete(s)
+      })
     }
     return true
   },

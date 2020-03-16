@@ -9,7 +9,10 @@ const stateHandler = {
     target[prop] = value
     if (subscribers[prop]) {
       // update the subscribers
-      subscribers[prop].forEach(s => s[prop] = value)
+      subscribers[prop].forEach(s => {
+        // implement our own WeakSet, since WeakSet isn't enumerable
+        s.parentNode ? (s[prop] = value) : subscribers[prop].delete(s)
+      })
     }
     return true
   },
