@@ -2,7 +2,7 @@ import { subscribers } from './state.js'
 
 export default class SubscriberElement extends HTMLElement {
   connectedCallback() {
-    this.subscribeToProps(this.observedProperties)
+    this.observedProperties.forEach(prop => this.subscribeToProp(prop))
     // subclasses have to include the render() method
     this.render()
   }
@@ -11,13 +11,17 @@ export default class SubscriberElement extends HTMLElement {
     this.render()
   }
 
+  disconnectedCallback() {
+    this.observedProperties.forEach(prop => this.unsubscribeFromProp(prop))
+  }
+
   subscribeToProp(prop) {
     // create the subscription category if it doesn't exist
     !subscribers[prop] && (subscribers[prop] = new Set())
     // add the element to the subscription category
-    subscribers[prop].add(this)
+    !subscribers[prop].has(this) && subscribers[prop].add(this)
     // add the prop to observedProperties if it's not there
-    !this.observedProperties.has(prop) < 0 && this.observedProperties.add(prop)
+    !this.observedProperties.has(prop) && this.observedProperties.add(prop)
   }
 
   unsubscribeFromProp(prop) {
@@ -25,9 +29,5 @@ export default class SubscriberElement extends HTMLElement {
     subscribers[prop].delete(this)
     // remove from element's observedProperties
     this.observedProperties.delete(prop)
-  }
-
-  subscribeToProps(props) {
-    props.forEach(p => this.subscribeToProp(p))
   }
 }
