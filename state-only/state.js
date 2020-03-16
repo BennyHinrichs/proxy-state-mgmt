@@ -1,4 +1,4 @@
-import equal from '../common/fast-deep-equal.js';
+import equal from '../common/fast-deep-equal.js'
 
 const stateHandler = {
   set: (target, prop, value, receiver) => {
@@ -12,10 +12,11 @@ const stateHandler = {
       // notify the subscribers
       subscribers[prop].forEach(s => s.propertyChangedCallback(prop, oldValue, value))
     }
-    return true;
+    return true
   },
   get: (target, prop, receiver) => prop in target ? target[prop] : undefined
-};
+}
+
 const state = new Proxy({reportType: '', user: {name: '', dob: ''}}, stateHandler)
 const subscribers = {}
 

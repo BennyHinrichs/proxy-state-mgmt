@@ -1,41 +1,47 @@
-// this is just a helper class to give your elements some base members related to subscribing
-// if you only have one element, you might want to just implement these memembers inside of it
-
-import { state, subscribers } from './state.js';
+import { state, subscribers } from './state.js'
 
 export default class SubscriberElement extends HTMLElement {
   constructor() {
-    super();
+    super()
     this.properties = new Proxy({}, {
       set: (obj, prop, newValue) => {
-        const oldValue = obj[prop];
-        obj[prop] = newValue;
-        // this callback has to be implemented on each element
-        this.propertyChangedCallback(prop, oldValue, newValue);
-        return true;
+        const oldValue = obj[prop]
+        obj[prop] = newValue
+        this.propertyChangedCallback(prop, oldValue, newValue)
+        return true
       },
       get: (obj, prop) => prop in obj ? obj[prop] : undefined
     })
   }
+
+  connectedCallback() {
+    this.subscribeToProps(this.observedProperties)
+    this.render()
+  }
+  
+  propertyChangedCallback(name, oldValue, newValue) {
+    this.render()
+  }
+
   subscribeToProp(prop) {
     // create the subscription category if it doesn't exist
-    !subscribers[prop] && (subscribers[prop] = []);
+    !subscribers[prop] && (subscribers[prop] = new Set())
     // add the element to the subscription category
-    subscribers[prop].push(this);
+    subscribers[prop].add(this)
     // initialize the element's prop to the state's prop
-    this[prop] = state[prop];
+    this[prop] = state[prop]
     // add the prop to observedProperties if it's not there
-    !this.observedProperties.indexOf(prop) < 0 && this.observedProperties.push(prop);
+    !this.observedProperties.has(prop) < 0 && this.observedProperties.add(prop)
   }
+
   unsubscribeFromProp(prop) {
     // remove from global subscribers
-    let index = subscribers[prop].indexOf(this);
-    subscribers[prop].splice(index, 1);
+    subscribers[prop].delete(this)
     // remove from element's observedProperties
-    index = this.observedProperties.indexOf(prop);
-    this.observedProperties.splice(index, 1);
+    this.observedProperties.delete(prop)
   }
+
   subscribeToProps(props) {
-    for (const prop of props) this.subscribeToProp(prop);
+    props.forEach(p => this.subscribeToProp(p))
   }
 }

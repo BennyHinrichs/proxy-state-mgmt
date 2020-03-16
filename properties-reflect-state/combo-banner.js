@@ -1,31 +1,24 @@
-import SubscriberElement from './subscriber-element.js';
+import SubscriberElement from './subscriber-element.js'
 
 class ComboBanner extends SubscriberElement {
-  constructor() {
-    super();
-    this.observedProperties = ['reportType', 'user'];
-  }
-  connectedCallback() {
-    this.subscribeToProps(this.observedProperties);
-    this.render();
-  }
-  propertyChangedCallback(name, oldValue, newValue) {
-    this.render();
-  }
+  observedProperties = new Set(['reportType', 'user'])
+  
   get reportType() {
-    return this.properties.reportType;
+    return this.properties.reportType
   }
   set reportType(val) {
-    this.properties.reportType = val;
+    this.properties.reportType = val
   }
   get user() {
-    return this.properties.user;
+    return this.properties.user
   }
   set user(val) {
-    this.properties.user = val;
+    this.properties.user = val
   }
+
   render() {
-    this.innerHTML = `<div>Report Type: ${this.reportType || 'TYPE'}</div><div>On ${(this.user || {}).dob || 'DATE'} there was ${(this.user || {}).name || 'NAME'}</div>`;
+    this.innerHTML = `<div>Report Type: ${this.reportType || 'TYPE'}</div><div>On ${this.user?.dob || 'DATE'} there was ${this.user?.name || 'NAME'}</div>`
   }
 }
-customElements.define('combo-banner', ComboBanner);
+
+customElements.define('combo-banner', ComboBanner)

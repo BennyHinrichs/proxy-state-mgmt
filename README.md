@@ -7,14 +7,14 @@ Sometimes you need your elements to be carrying the live data. Maybe you have a 
 ### Usage
 1. Make thee a custom element that extends my `SubscriberElement` class.
 1. Define the class field `observedProperties`, a `Set` of properties you want to observe. You can do this in the constructor if you want it more backward-compatible.
-1. Definte the `render()` method.
+1. Define the `render()` method.
 1. If needed, override `connectedCallback`.
 1. If needed, override `propertyChangedCallback`.
 1. Make getters and setters for each property. This could potentially be done in the `subscribeToProp` method, but I don't know if I want to take that flexibility away from the programmer.
 1. If for whatever reason you need to stop listening to state changes for a certain prop, you can call `unsubscribeFromProp`, passing in the name of the undesired prop.
 
 ## State Only
-**This method is preferred for most cases I run into.** Sometimes you don't care that the element itself is carrying the data; simply accessing it from elsewhere is fine. The most salient case is where the state is only affecting the visual aspect of your components. Such instances lend themselves very well to shielding your elements from the burden of bearing the state.
+**This method is preferred for most cases I run into.** Sometimes you don't care that the element itself is carrying the data simply accessing it from elsewhere is fine. The most salient case is where the state is only affecting the visual aspect of your components. Such instances lend themselves very well to shielding your elements from the burden of bearing the state.
 
 ### Usage
 The exact same as the Properties Reflect State version, except you don't need to make getters and setters (unless you're watching local attributes *in addition* to the global properties).
@@ -26,24 +26,21 @@ If you want to do this, you'll have to modify `state.js` to include a check to s
 
 ```javascript
 set: (target, prop, value, receiver) => {
-  const sameObj = typeof value === 'object' && equal(value, target[prop]);
-  if (sameObj || target[prop] === value) return true;
-  const oldValue = target[prop];
-  target[prop] = value;
+  const sameObj = typeof value === 'object' && equal(value, target[prop])
+  if (sameObj || target[prop] === value) return true
+  const oldValue = target[prop]
+  target[prop] = value
   if (subscribers[prop]) {
-    const s = subscribers[prop];
-    for (let i = s.length; i-- !== 0;) {
-      const element = s[i];
+    subscribers[prop].forEach(s => {
       // here's the exciting part
-      if (Object.getPrototypeOf(Object.getPrototypeOf(element)).constructor.name === 'SubscriberElement') {
-        element.propertyChangedCallback(prop, oldValue, value);
+      if (Object.getPrototypeOf(Object.getPrototypeOf(s)).constructor.name === 'SubscriberElement') {
+        s.propertyChangedCallback(prop, oldValue, value)
       } else {
-        element[prop] = value;
+        s[prop] = value
       }
-      
-    }
+    })
   }
-  return true;
+  return true
 }
 Object.getPrototypeOf(Object.getPrototypeOf($0)).constructor.name
 ```

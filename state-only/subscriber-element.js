@@ -1,4 +1,4 @@
-import { subscribers } from './state.js';
+import { subscribers } from './state.js'
 
 export default class SubscriberElement extends HTMLElement {
   connectedCallback() {
@@ -8,7 +8,7 @@ export default class SubscriberElement extends HTMLElement {
   }
 
   propertyChangedCallback(prop, oldValue, newValue) {
-    this.render();
+    this.render()
   }
 
   subscribeToProp(prop) {
@@ -28,6 +28,6 @@ export default class SubscriberElement extends HTMLElement {
   }
 
   subscribeToProps(props) {
-    for (const prop of props) this.subscribeToProp(prop)
+    props.forEach(p => this.subscribeToProp(p))
   }
 }

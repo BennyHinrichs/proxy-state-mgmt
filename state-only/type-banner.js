@@ -1,5 +1,5 @@
-import { state } from './state.js';
-import SubscriberElement from './subscriber-element.js';
+import { state } from './state.js'
+import SubscriberElement from './subscriber-element.js'
 
 class TypeBanner extends SubscriberElement {
   observedProperties = new Set(['reportType'])
@@ -10,13 +10,18 @@ class TypeBanner extends SubscriberElement {
     mock: 'Working with temporary values. No changes will be saved to the system.'
   }
 
+  propertyChangedCallback(prop, oldValue, newValue) {
+    console.log('this propertyChangedCallback has been overridden')
+    super.propertyChangedCallback()
+  }
+
   setMessage() {
-    this.message = this.#messages[state.reportType] || 'Select below how you want the report to be generated';
+    this.message = this.#messages[state.reportType] || 'Select below how you want the report to be generated'
   }
 
   render() {
-    this.setMessage();
-    this.innerText = this.message;
+    this.setMessage()
+    this.innerText = this.message
   }
 }
-customElements.define('type-banner', TypeBanner);
+customElements.define('type-banner', TypeBanner)
