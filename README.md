@@ -53,7 +53,7 @@ Object.getPrototypeOf(Object.getPrototypeOf($0)).constructor.name
 A beautiful aspect of this is that it's source-agnostic; it doesn't care where the change came from. You can receive an update from the server as JSON, parse and push it, and all your elements will get updated. I haven't done any testing in that regard.
 
 ### Rich Data, JS Optionals
-My current preferred method for checking if object properties exist is: `(((level1 || {}).level2 || {}).level3 || {}).key`. There is [a TC-39 proposal](https://github.com/tc39/proposal-optional-chaining) in stage one for optional chaining syntax, so it could look like `obj?.level1?.level2?.level3?.key`. Isn't that just lovely? Anyway, the point is don't pass in rich data (like an object), then shoot yourself in the foot by not doing null checks on it.
+Optional chaning is in, boys. That means you can check for data like `obj?.level1?.level2?.level3?.key`. Isn't that just lovely? Anyway, the point is don't pass in rich data (like an object), then shoot yourself in the foot by not doing null checks on it.
 
 ### Smart `render()`
 What should go in my render function? How do I make it smart? My first suggestion is to split your visual updates into two categories: content and style. If a visual update can be achieved by adding or removing a class, do that instead of resetting the entire `this.innerHTML`.
